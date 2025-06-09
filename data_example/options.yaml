@@ -1,0 +1,47 @@
+H: 360
+W: 480
+barf_c2f:
+- 0.0
+- 0.0
+blending_depth: 4
+blending_resize_factor: 0.9
+dataset_images:
+- '2'
+- '5'
+- '15'
+- '17'
+- '48'
+debug: false
+device: cpu
+estimate_homs: true
+homography_estimation:
+  feature_extractor: disk-depth
+  matcher: lightglue
+  min_inliers: 50
+  num_features: 2048
+log_image: 500
+log_scalar: 20
+loss_threshold: 0.5
+loss_weights:
+- 1
+- 3
+- 1
+max_iter: 500
+optim:
+  algo: Adam
+  lr: 0.001
+  lr_warp: 0.001
+output_H: 270
+output_W: 360
+posenc: true
+posenc_depth: 8
+rescale_factor: 0.2
+set_estimated_homs: true
+tb: true
+use_cropped_images: true
+use_sidar: true
+vis_hom: true
+warp:
+  dof: 8
+  fix_first: true
+  type: homography

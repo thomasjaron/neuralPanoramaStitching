@@ -1,0 +1,8 @@
+-c requirements.txt
+autopep8
+pycodestyle
+pylint
+mypy
+bumpversion
+pytest
+types-setuptools

@@ -1,0 +1,10 @@
+lightning
+numpy
+scipy
+easydict
+matplotlib
+scikit-video
+imageio
+tensorboard
+opencv-python
+kornia
