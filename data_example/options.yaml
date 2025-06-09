@@ -12,7 +12,7 @@ dataset_images:
 - '17'
 - '48'
 debug: false
-device: cpu
+device: cuda # cuda or cpu
 estimate_homs: true
 homography_estimation:
   feature_extractor: disk-depth
@@ -26,7 +26,7 @@ loss_weights:
 - 1
 - 3
 - 1
-max_iter: 500
+max_iter: 10000
 optim:
   algo: Adam
   lr: 0.001

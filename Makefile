@@ -1,7 +1,7 @@
 # ------------------------------------------------------
 # VARIABLES
 # ------------------------------------------------------
-VENV=. venv/Scripts/activate
+VENV=. venv/bin/activate
 VENV_WINDOWS=call venv/Scripts/activate
 # ------------------------------------------------------
 # MAIN COMMANDS
