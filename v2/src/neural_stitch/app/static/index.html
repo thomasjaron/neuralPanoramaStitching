@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>neural-stitch</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>neural-stitch</h1>
+    <span id="device" class="muted"></span>
+  </header>
+
+  <main>
+    <!-- 1. Upload -->
+    <section id="upload" class="card">
+      <h2><span class="step">1</span> Add images</h2>
+      <p class="muted">Any order, any file names. Images that don't fit will be left out.</p>
+      <label id="drop" class="drop">
+        <input id="file-input" type="file" accept="image/*" multiple hidden>
+        <strong>Drop images here</strong> or click to choose
+      </label>
+      <ul id="picked" class="thumbs"></ul>
+      <div class="row">
+        <label title="Fast: smaller matching images and fewer keypoints, about 2x quicker. Accurate: best alignment.">Matching
+          <select id="opt-speed"><option value="accurate">Accurate</option><option value="fast">Fast</option></select></label>
+        <button id="check-btn" class="primary" disabled>Check alignment</button>
+        <span id="upload-msg" class="muted"></span>
+      </div>
+    </section>
+
+    <!-- 2. Check -->
+    <section id="check" class="card" hidden>
+      <h2><span class="step">2</span> Alignment check</h2>
+      <div id="check-progress" class="progress-block">
+        <div class="bar"><div></div></div>
+        <span class="muted"></span>
+      </div>
+      <p id="check-msg" class="verdict"></p>
+      <ul id="report" class="thumbs"></ul>
+      <figure id="check-preview" hidden>
+        <img alt="Quick preview from the RANSAC + least-squares alignment">
+        <figcaption class="muted">Quick preview (classic blend after least-squares alignment)</figcaption>
+      </figure>
+      <details id="pairs" hidden>
+        <summary>Pair details</summary>
+        <div class="table-wrap"><table><thead><tr><th>Pair</th><th>Matches</th><th>Inliers</th><th>Result</th></tr></thead><tbody></tbody></table></div>
+      </details>
+    </section>
+
+    <!-- 3. Run -->
+    <section id="run" class="card" hidden>
+      <h2><span class="step">3</span> Neural refinement</h2>
+      <div class="row options">
+        <label><input id="opt-neural" type="checkbox" checked> Neural refinement</label>
+        <label>Max steps <input id="opt-iters" type="number" min="1" step="100"></label>
+        <label>Output <select id="opt-res" title="Like video resolutions: the number is the height (short side). The width follows the panorama's shape."></select></label>
+        <label id="custom-size" hidden>Long side <input id="opt-size" type="number" min="64" max="50000" step="100"> px</label>
+        <button id="start-btn" class="primary">Start</button>
+        <button id="cancel-btn" hidden>Cancel</button>
+      </div>
+      <p class="muted small">Stops early once the error converges.</p>
+      <div id="run-progress" class="progress-block" hidden>
+        <div class="bar"><div></div></div>
+        <span class="muted"></span>
+        <div class="live">
+          <svg id="chart" viewBox="0 0 300 100" preserveAspectRatio="none" aria-label="Loss over steps"><polyline fill="none" stroke-width="2" vector-effect="non-scaling-stroke"/></svg>
+          <img id="live-preview" alt="Live preview" hidden>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Result -->
+    <section id="result" class="card" hidden>
+      <h2><span class="step">4</span> Result</h2>
+      <div class="tabs" role="tablist">
+        <button role="tab" data-file="panorama" aria-selected="true">Neural render</button>
+        <button role="tab" data-file="classic" aria-selected="false">Classic blend</button>
+      </div>
+      <img id="result-img" alt="Stitched panorama">
+      <div class="row">
+        <a id="dl-pano" class="button">Download neural</a>
+        <a id="dl-classic" class="button">Download classic</a>
+        <a id="dl-homs" class="button">Homographies (JSON)</a>
+        <button id="restart-btn">Start over</button>
+      </div>
+      <div class="table-wrap"><table id="metrics"><tbody></tbody></table></div>
+    </section>
+
+    <p id="error" class="error" hidden></p>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>

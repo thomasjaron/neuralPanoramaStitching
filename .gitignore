@@ -171,3 +171,6 @@ tb_logs
 *.jpeg
 *.gif
 *.bmp
+# v2
+v2/output
+v2/out
