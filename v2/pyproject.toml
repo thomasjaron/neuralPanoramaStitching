@@ -1,0 +1,52 @@
+[project]
+name = "neural-stitch"
+version = "2.0.0"
+description = "Panorama stitching: RANSAC start, least-squares refinement, neural refinement until convergence."
+readme = "README.md"
+requires-python = ">=3.12"
+authors = [{ name = "Thomas Jaron-Strugala" }]
+dependencies = [
+    "torch>=2.7",
+    "kornia>=0.8.1",
+    "numpy>=2.2",
+    "opencv-python-headless>=4.11",
+    "pillow>=11",
+    "pydantic>=2.10",
+    "fastapi>=0.115",
+    "uvicorn>=0.34",
+    "python-multipart>=0.0.20",
+]
+
+[project.scripts]
+neural-stitch = "neural_stitch.cli:main"
+
+[dependency-groups]
+dev = ["pytest>=8.4", "ruff>=0.12", "mypy>=1.16", "httpx>=0.28"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.uv]
+# Only use releases that are at least ~2 weeks old.
+exclude-newer = "2026-10-09T00:00:00Z"
+
+[tool.uv.sources]
+# Linux: the PyPI build already includes CUDA (and also runs on CPU).
+# Windows: PyPI only has CPU builds, so use the CUDA index there.
+torch = [{ index = "pytorch-cu126", marker = "sys_platform == 'win32'" }]
+
+[[tool.uv.index]]
+name = "pytorch-cu126"
+url = "https://download.pytorch.org/whl/cu126"
+explicit = true
+
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "SIM"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
