@@ -1,4 +1,6 @@
-# master-thesis
+# master-thesis (v1)
+
+> This is the original thesis code. The rebuilt version with a web app is in [../v2](../v2).
 Repository for code related to the Masters Thesis "Neural Panorama Stitching" (June 2025).
 
 Author: Thomas Jaron-Strugala
@@ -36,11 +38,13 @@ The installation was tested using Windows 11 and Python 3.12.6
 
 ## Run the model
 
-Navigate to the folder containing the repository, then use
+From the **repository root** (so that `./data_example` is found), use
 
 ```
-python src/model.py
+python v1/src/model.py
 ```
+
+The install commands above are run inside the `v1/` folder.
 
 which will execute the model using the dataset within `data_example`.
 The resulting image files can be found in the folder `data_example/output/vis`.
